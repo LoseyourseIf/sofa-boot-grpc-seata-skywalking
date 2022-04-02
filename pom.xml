@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>xingyu.lab</groupId>
+    <artifactId>sofa-boot-grpc-seata-skywalking</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <modules>
+        <module>seata-order</module>
+        <module>svc-order</module>
+        <module>svc-pay</module>
+        <module>svc-stock</module>
+        <module>svc-facade</module>
+    </modules>
+
+    <parent>
+        <groupId>com.alipay.sofa</groupId>
+        <artifactId>sofaboot-dependencies</artifactId>
+        <version>3.4.6</version>
+        <relativePath/>
+    </parent>
+    <!--
+      SOFABoot 版本	Spring Boot 版本
+      2.3.x	1.4.2.RELEASE
+      2.4.x	1.4.2.RELEASE
+      2.5.x	1.5.16.RELEASE
+      3.0.x	2.0.3.RELEASE
+      3.1.x	2.1.0.RELEASE
+      3.2.x	2.1.0.RELEASE
+      3.3.0～3.3.1	2.1.11.RELEASE
+      3.3.2 及以后	2.1.13.RELEASE
+      3.4.6         2.1.13.RELEASE
+    -->
+
+    <packaging>pom</packaging>
+
+    <properties>
+        <java.version>1.8</java.version>
+        <seata.version>1.4.2</seata.version>
+        <druid.starter.version>1.1.22</druid.starter.version>
+        <mybatis-plus.starter.version>3.4.1</mybatis-plus.starter.version>
+        <dynamic-datasourc.starter.version>3.2.0</dynamic-datasourc.starter.version>
+        <mysql.driver.version>8.0.21</mysql.driver.version>
+        <pagehelper-starter.version>1.3.0</pagehelper-starter.version>
+        <apache.common.lang.version>3.11</apache.common.lang.version>
+        <hutool.version>5.7.8</hutool.version>
+        <fastjson.version>1.2.76</fastjson.version>
+    </properties>
+
+    <dependencies>
+        <!--sofa rpc-->
+        <dependency>
+            <groupId>com.alipay.sofa</groupId>
+            <artifactId>rpc-sofa-boot</artifactId>
+        </dependency>
+        <!--spring-boot-starter-web-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <!--sofa-health-check-->
+        <dependency>
+            <groupId>com.alipay.sofa</groupId>
+            <artifactId>healthcheck-sofa-boot-starter</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-web</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <!--seata-->
+        <dependency>
+            <groupId>io.seata</groupId>
+            <artifactId>seata-spring-boot-starter</artifactId>
+            <version>${seata.version}</version>
+        </dependency>
+        <!--rpc-->
+        <dependency>
+            <groupId>com.alipay.sofa</groupId>
+            <artifactId>rpc-sofa-boot-starter</artifactId>
+        </dependency>
+        <!-- Mybatis-Plus -->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
+            <version>${mybatis-plus.starter.version}</version>
+        </dependency>
+        <!-- Druid -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid-spring-boot-starter</artifactId>
+            <version>${druid.starter.version}</version>
+        </dependency>
+        <!-- Dynamic-datasource -->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>dynamic-datasource-spring-boot-starter</artifactId>
+            <version>${dynamic-datasourc.starter.version}</version>
+        </dependency>
+        <!--mysql-connector-->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>${mysql.driver.version}</version>
+        </dependency>
+        <!-- page-helper -->
+        <dependency>
+            <groupId>com.github.pagehelper</groupId>
+            <artifactId>pagehelper-spring-boot-starter</artifactId>
+            <version>${pagehelper-starter.version}</version>
+        </dependency>
+        <!--Fastjson-->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+        </dependency>
+        <!--lombok-->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+        <!--lang3-->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>${apache.common.lang.version}</version>
+        </dependency>
+        <!--hutool-all-->
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-all</artifactId>
+            <version>${hutool.version}</version>
+        </dependency>
+
+        <!--Test-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <!--Test-->
+
+    </dependencies>
+
+</project>

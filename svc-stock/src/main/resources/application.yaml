@@ -1,0 +1,27 @@
+spring:
+  profiles:
+    active: dev
+  application:
+    name: svc-order
+
+server:
+  port: 8082
+
+
+logging:
+  path: ./logs
+
+com:
+  alipay:
+    sofa:
+      boot:
+        bean-load-cost: 100
+        module-start-up-parallel: true
+        publish-event-to-parent: false
+        allow-bean-definition-overriding: false
+      rpc:
+        registry:
+          address: nacos://172.16.31.210:31256/dev
+        triple:
+          port: 50052
+# GRPC_DEFAULT_PORT = 50051
