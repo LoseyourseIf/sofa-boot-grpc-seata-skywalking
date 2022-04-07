@@ -27,8 +27,10 @@ import java.math.BigDecimal;
  * @author xingyu.lu
  * @create 2020-12-23 10:25
  **/
-@Service
+
 @Slf4j
+@DS("stock")
+@Service
 @SofaService(uniqueId = "Grpc-Stock", interfaceType = SofaXServiceTriple.IXService.class,
         bindings = {@SofaServiceBinding(
                 bindingType = RpcConstants.PROTOCOL_TYPE_TRIPLE,
@@ -49,13 +51,10 @@ public class StockSofaGrpcServiceImpl extends SofaXServiceTriple.XServiceImplBas
     private ProductMapper productMapper;
 
     @Override
-    @DS("stock")
-    @Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRES_NEW)
     public String bizService(String param) {
-
+        log.info("当前 XID: {}", RootContext.getXID());
         Orders orders = null;
         try {
-            log.info("当前 XID: {}", RootContext.getXID());
             orders = JSON.parseObject(param, Orders.class);
 
             Integer productId = orders.getProductId();

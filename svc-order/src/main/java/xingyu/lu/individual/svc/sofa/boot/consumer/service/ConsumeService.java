@@ -1,5 +1,6 @@
 package xingyu.lu.individual.svc.sofa.boot.consumer.service;
 
+import io.seata.core.exception.TransactionException;
 import xingyu.lu.individual.svc.sofa.boot.facade.entity.Orders;
 
 import javax.ws.rs.*;
@@ -16,6 +17,6 @@ public interface ConsumeService {
 
     @GET
     @Path("create")
-    public Orders createOrder();
+    public Orders createOrder() throws TransactionException;
 
 }

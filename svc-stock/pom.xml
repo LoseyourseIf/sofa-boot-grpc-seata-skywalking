@@ -18,7 +18,7 @@
         </dependency>
         <dependency>
             <groupId>xingyu.lab</groupId>
-            <artifactId>seata-order</artifactId>
+            <artifactId>order-common</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
     </dependencies>

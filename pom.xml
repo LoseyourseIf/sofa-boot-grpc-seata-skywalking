@@ -8,7 +8,7 @@
     <artifactId>sofa-boot-grpc-seata-skywalking</artifactId>
     <version>1.0-SNAPSHOT</version>
     <modules>
-        <module>seata-order</module>
+        <module>order-common</module>
         <module>svc-order</module>
         <module>svc-pay</module>
         <module>svc-stock</module>
@@ -82,6 +82,7 @@
             <groupId>com.alipay.sofa</groupId>
             <artifactId>rpc-sofa-boot-starter</artifactId>
         </dependency>
+
         <!-- Mybatis-Plus -->
         <dependency>
             <groupId>com.baomidou</groupId>

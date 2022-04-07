@@ -27,8 +27,9 @@ import java.math.BigDecimal;
  * @author xingyu.lu
  * @create 2020-12-23 10:25
  **/
-@Service
 @Slf4j
+@Service
+@DS("pay")
 @SofaService(uniqueId = "Grpc-Pay", interfaceType = SofaXServiceTriple.IXService.class,
         bindings = {@SofaServiceBinding(
                 bindingType = RpcConstants.PROTOCOL_TYPE_TRIPLE,
@@ -49,8 +50,6 @@ public class PaySofaGrpcServiceImpl extends SofaXServiceTriple.XServiceImplBase 
     private AccountMapper accountMapper;
 
     @Override
-    @DS("pay")
-    @Transactional(rollbackFor = Exception.class, propagation = Propagation.REQUIRES_NEW)
     public String bizService(String param) {
         Orders orders = null;
         try {
@@ -67,10 +66,8 @@ public class PaySofaGrpcServiceImpl extends SofaXServiceTriple.XServiceImplBase 
                 orders.setStatus("余额不足！");
                 throw new Exception("余额不足");
             }
-
             account.setBalance(account.getBalance().subtract(payAmount));
             accountMapper.updateById(account);
-
             orders.setStatus("扣减余额成功！");
         } catch (Exception e) {
             e.printStackTrace();
