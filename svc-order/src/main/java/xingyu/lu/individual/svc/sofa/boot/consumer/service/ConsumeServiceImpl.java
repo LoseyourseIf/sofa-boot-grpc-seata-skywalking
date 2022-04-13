@@ -20,8 +20,6 @@ import xingyu.lu.individual.svc.sofa.boot.facade.mapper.OrdersMapper;
 
 import javax.annotation.Resource;
 import java.math.BigDecimal;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * @author xingyu.lu
