@@ -57,10 +57,10 @@ public class ConsumeServiceImpl implements ConsumeService {
 
         log.info("保存订单{}", saveOrderRecord > 0 ? "成功" : "失败");
 
-        Orders operationStockResult = stockService.bizService(orders);
+        Orders operationStockResult = stockService.stockBiz(orders);
         log.info("扣减库存 {} ", operationStockResult.toString());
 
-        Orders operationAccountResult = payService.bizService(orders);
+        Orders operationAccountResult = payService.payBiz(orders);
         log.info("扣减余额 {} ", operationAccountResult.toString());
 
         orders.setStatus("下单成功");

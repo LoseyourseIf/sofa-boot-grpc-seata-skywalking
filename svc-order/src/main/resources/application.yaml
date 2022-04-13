@@ -21,7 +21,5 @@ com:
       rpc:
         registry:
           address: nacos://172.16.31.210:31256/dev
-        triple:
-          port: 50050
         rest-port: 8088
 

@@ -8,13 +8,8 @@
             http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
     <!-- filter -->
-
-    <bean id="seataTxContextConsumerFilter"
-          class="xingyu.lu.individual.svc.sofa.boot.filter.SeataTxContextConsumerFilter"/>
     <bean id="seataTxContextProviderFilter"
           class="xingyu.lu.individual.svc.sofa.boot.filter.SeataTxContextProviderFilter"/>
     <!--Global Filter Test-->
-    <sofa:rpc-global-filter ref="seataTxContextConsumerFilter"/>
-
     <sofa:rpc-global-filter ref="seataTxContextProviderFilter"/>
 </beans>

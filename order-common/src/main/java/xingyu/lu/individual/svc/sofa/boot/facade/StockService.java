@@ -7,5 +7,5 @@ import xingyu.lu.individual.svc.sofa.boot.facade.entity.Orders;
  * @create 2020-12-23 10:25
  **/
 public interface StockService {
-    Orders bizService(Orders param);
+    Orders stockBiz(Orders orders);
 }

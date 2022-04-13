@@ -1,6 +1,5 @@
 package xingyu.lu.individual.svc.sofa.boot.provider.service.impl;
 
-import com.alibaba.fastjson.JSON;
 import com.alipay.sofa.runtime.api.annotation.SofaService;
 import com.alipay.sofa.runtime.api.annotation.SofaServiceBinding;
 import com.baomidou.dynamic.datasource.annotation.DS;
@@ -31,7 +30,7 @@ public class PaySofaServiceImpl implements PayService {
     private AccountMapper accountMapper;
 
     @Override
-    public Orders bizService(Orders orders) {
+    public Orders payBiz(Orders orders) {
         try {
             log.info("当前 XID: {}", RootContext.getXID());
             Integer userId = orders.getUserId();

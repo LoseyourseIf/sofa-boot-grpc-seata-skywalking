@@ -1,6 +1,5 @@
 package xingyu.lu.individual.svc.sofa.boot.provider.service.impl;
 
-import com.alibaba.fastjson.JSON;
 import com.alipay.sofa.runtime.api.annotation.SofaService;
 import com.alipay.sofa.runtime.api.annotation.SofaServiceBinding;
 import com.baomidou.dynamic.datasource.annotation.DS;
@@ -32,7 +31,7 @@ public class StockSofaServiceImpl implements StockService {
     private ProductMapper productMapper;
 
     @Override
-    public Orders bizService(Orders orders) {
+    public Orders stockBiz(Orders orders) {
         log.info("当前 XID: {}", RootContext.getXID());
         try {
             Integer productId = orders.getProductId();
