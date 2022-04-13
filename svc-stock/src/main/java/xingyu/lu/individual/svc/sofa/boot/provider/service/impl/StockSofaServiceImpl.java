@@ -24,7 +24,9 @@ import java.math.BigDecimal;
 @Service
 @SofaService(uniqueId = "Stock",
         interfaceType = StockService.class,
-        bindings = {@SofaServiceBinding(bindingType = "bolt")})
+        bindings = {@SofaServiceBinding(
+                bindingType = "rest",
+                filters = {"seataTxContextProviderFilter"})})
 public class StockSofaServiceImpl implements StockService {
 
     @Resource

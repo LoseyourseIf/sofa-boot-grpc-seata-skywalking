@@ -9,7 +9,6 @@ import org.springframework.context.annotation.ImportResource;
  * @create 2020-12-23 13:26
  **/
 @SpringBootApplication
-@ImportResource("classpath*:sofa/sofa-rpc-seata-provider.xml")
 public class PayApplication {
     public static void main(String[] args) {
         SpringApplication.run(PayApplication.class, args);

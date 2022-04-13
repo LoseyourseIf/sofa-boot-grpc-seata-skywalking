@@ -8,7 +8,6 @@ import org.springframework.context.annotation.ImportResource;
  * @author xingyu.lu
  **/
 @SpringBootApplication
-@ImportResource("classpath*:sofa/sofa-rpc-seata-provider.xml")
 public class StockApplication {
     public static void main(String[] args) {
         SpringApplication.run(StockApplication.class, args);

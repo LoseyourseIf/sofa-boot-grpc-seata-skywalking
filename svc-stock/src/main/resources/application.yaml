@@ -22,4 +22,4 @@ com:
       rpc:
         registry:
           address: nacos://172.16.31.210:31256/dev
-        bolt-port: 12202
+        rest-port: 8092

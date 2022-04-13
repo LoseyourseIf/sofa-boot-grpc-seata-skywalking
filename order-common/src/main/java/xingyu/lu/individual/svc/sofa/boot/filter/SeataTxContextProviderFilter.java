@@ -10,7 +10,9 @@ import com.alipay.sofa.rpc.filter.Filter;
 import com.alipay.sofa.rpc.filter.FilterInvoker;
 import io.seata.core.context.RootContext;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Component;
 
+@Component
 @Extension(value = "seataTxContextProviderFilter")
 @AutoActive(providerSide = true)
 @Slf4j
@@ -19,6 +21,11 @@ public class SeataTxContextProviderFilter extends Filter {
     /**
      * log for this class
      */
+
+    @Override
+    public boolean needToLoad(FilterInvoker invoker) {
+        return true;
+    }
 
     @Override
     public SofaResponse invoke(FilterInvoker filterInvoker, SofaRequest sofaRequest) throws SofaRpcException {

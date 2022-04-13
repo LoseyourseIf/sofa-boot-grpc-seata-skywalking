@@ -26,18 +26,21 @@ import java.math.BigDecimal;
 @Service
 @DS("order")
 @SofaService(uniqueId = "Rest-Order", interfaceType = ConsumeService.class, bindings =
-@SofaServiceBinding(bindingType = "rest", timeout = 50000))
+@SofaServiceBinding(bindingType = "rest", timeout = 50000,
+        filters = {"seataTxContextConsumerFilter"}))
 public class ConsumeServiceImpl implements ConsumeService {
 
 
     @SofaReference(uniqueId = "Pay",
             interfaceType = PayService.class,
-            binding = @SofaReferenceBinding(bindingType = "bolt"))
+            binding = @SofaReferenceBinding(bindingType = "rest",
+                    filters = {"seataTxContextProviderFilter"}))
     private PayService payService;
 
     @SofaReference(uniqueId = "Stock",
             interfaceType = StockService.class,
-            binding = @SofaReferenceBinding(bindingType = "bolt"))
+            binding = @SofaReferenceBinding(bindingType = "rest",
+                    filters = {"seataTxContextProviderFilter"}))
     private StockService stockService;
 
     @Resource
