@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>xingyu.lab</groupId>
-    <artifactId>sofa-boot-grpc-seata-skywalking</artifactId>
+    <artifactId>sofa-boot-seata-skywalking</artifactId>
     <version>1.0-SNAPSHOT</version>
     <modules>
         <module>order-common</module>
