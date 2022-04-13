@@ -12,7 +12,6 @@
         <module>svc-order</module>
         <module>svc-pay</module>
         <module>svc-stock</module>
-        <module>svc-facade</module>
     </modules>
 
     <parent>
@@ -32,6 +31,7 @@
       3.3.0～3.3.1	2.1.11.RELEASE
       3.3.2 及以后	2.1.13.RELEASE
       3.4.6         2.1.13.RELEASE
+      <version>2.1.13.RELEASE</version>
     -->
 
     <packaging>pom</packaging>

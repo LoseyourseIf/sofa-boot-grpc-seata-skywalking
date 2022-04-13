@@ -1,4 +1,4 @@
-package xingyu.lu.individual.svc.sofa.boot.facade;
+package xingyu.lu.individual.svc.sofa.boot.filter;
 
 import com.alipay.sofa.rpc.context.RpcInternalContext;
 import com.alipay.sofa.rpc.core.exception.SofaRpcException;
@@ -11,10 +11,10 @@ import com.alipay.sofa.rpc.filter.FilterInvoker;
 import io.seata.core.context.RootContext;
 import lombok.extern.slf4j.Slf4j;
 
-@Extension(value = "transactionContextProvider")
+@Extension(value = "seataTxContextProviderFilter")
 @AutoActive(providerSide = true)
 @Slf4j
-public class SeataTxContextProviderFilter extends Filter{
+public class SeataTxContextProviderFilter extends Filter {
 
     /**
      * log for this class
@@ -24,9 +24,8 @@ public class SeataTxContextProviderFilter extends Filter{
     public SofaResponse invoke(FilterInvoker filterInvoker, SofaRequest sofaRequest) throws SofaRpcException {
         String xid = RootContext.getXID();
         String rpcXid = getRpcXid(sofaRequest);
-        if (log.isDebugEnabled()) {
-            log.debug("xid in RootContext[" + xid + "] xid in RpcContext[" + rpcXid + "]");
-        }
+
+        log.info("xid in RootContext[" + xid + "] xid in RpcContext[" + rpcXid + "]");
         boolean bind = false;
         if (xid != null) {
             RpcInternalContext.getContext().setAttachment(RootContext.KEY_XID, xid);
@@ -34,9 +33,8 @@ public class SeataTxContextProviderFilter extends Filter{
             if (rpcXid != null) {
                 RootContext.bind(rpcXid);
                 bind = true;
-                if (log.isDebugEnabled()) {
-                    log.debug("bind[" + rpcXid + "] to RootContext");
-                }
+
+                log.debug("bind[" + rpcXid + "] to RootContext");
             }
         }
         try {
@@ -44,9 +42,8 @@ public class SeataTxContextProviderFilter extends Filter{
         } finally {
             if (bind) {
                 String unbindXid = RootContext.unbind();
-                if (log.isDebugEnabled()) {
-                    log.debug("unbind[" + unbindXid + "] from RootContext");
-                }
+
+                log.debug("unbind[" + unbindXid + "] from RootContext");
                 if (!rpcXid.equalsIgnoreCase(unbindXid)) {
                     if (log.isWarnEnabled()) {
                         log.warn("xid in change during RPC from " + rpcXid + " to " + unbindXid);
@@ -64,6 +61,7 @@ public class SeataTxContextProviderFilter extends Filter{
 
     /**
      * get rpc xid
+     *
      * @return
      */
     private String getRpcXid(SofaRequest sofaRequest) {
@@ -73,4 +71,5 @@ public class SeataTxContextProviderFilter extends Filter{
         }
         return rpcXid;
     }
+
 }

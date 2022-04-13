@@ -1,7 +1,5 @@
 package xingyu.lu.individual.svc.sofa.boot.consumer.service;
 
-import com.alibaba.fastjson.JSON;
-import com.alipay.sofa.rpc.common.RpcConstants;
 import com.alipay.sofa.runtime.api.annotation.SofaReference;
 import com.alipay.sofa.runtime.api.annotation.SofaReferenceBinding;
 import com.alipay.sofa.runtime.api.annotation.SofaService;
@@ -12,9 +10,8 @@ import io.seata.spring.annotation.GlobalTransactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import xingyu.lu.individual.svc.sofa.boot.facade.builder.GrpcXReply;
-import xingyu.lu.individual.svc.sofa.boot.facade.builder.GrpcXRequest;
-import xingyu.lu.individual.svc.sofa.boot.facade.builder.SofaXServiceTriple;
+import xingyu.lu.individual.svc.sofa.boot.facade.PayService;
+import xingyu.lu.individual.svc.sofa.boot.facade.StockService;
 import xingyu.lu.individual.svc.sofa.boot.facade.entity.Orders;
 import xingyu.lu.individual.svc.sofa.boot.facade.mapper.OrdersMapper;
 
@@ -32,21 +29,16 @@ import java.math.BigDecimal;
 @SofaServiceBinding(bindingType = "rest", timeout = 50000))
 public class ConsumeServiceImpl implements ConsumeService {
 
-    @SofaReference(
-            uniqueId = "Grpc-Pay",
-            interfaceType = SofaXServiceTriple.IXService.class,
-            binding = @SofaReferenceBinding(
-                    bindingType = RpcConstants.PROTOCOL_TYPE_TRIPLE,
-                    serializeType = RpcConstants.SERIALIZE_PROTOBUF))
-    private SofaXServiceTriple.IXService payService;
 
-    @SofaReference(
-            uniqueId = "Grpc-Stock",
-            interfaceType = SofaXServiceTriple.IXService.class,
-            binding = @SofaReferenceBinding(
-                    bindingType = RpcConstants.PROTOCOL_TYPE_TRIPLE,
-                    serializeType = RpcConstants.SERIALIZE_PROTOBUF))
-    private SofaXServiceTriple.IXService stockService;
+    @SofaReference(uniqueId = "Pay",
+            interfaceType = PayService.class,
+            binding = @SofaReferenceBinding(bindingType = "bolt"))
+    private PayService payService;
+
+    @SofaReference(uniqueId = "Stock",
+            interfaceType = StockService.class,
+            binding = @SofaReferenceBinding(bindingType = "bolt"))
+    private StockService stockService;
 
     @Resource
     private OrdersMapper ordersMapper;
@@ -65,46 +57,16 @@ public class ConsumeServiceImpl implements ConsumeService {
 
         log.info("保存订单{}", saveOrderRecord > 0 ? "成功" : "失败");
 
-        String operationStockResult = callStockService(orders);
-        log.info("扣减库存 {} ", operationStockResult);
+        Orders operationStockResult = stockService.bizService(orders);
+        log.info("扣减库存 {} ", operationStockResult.toString());
 
-        String operationAccountResult = callAccountService(orders);
-        log.info("扣减余额 {} ", operationAccountResult);
+        Orders operationAccountResult = payService.bizService(orders);
+        log.info("扣减余额 {} ", operationAccountResult.toString());
 
         orders.setStatus("下单成功");
         int updateOrderRecord = ordersMapper.updateById(orders);
         log.info("更新订单:{} {}", orders.getId(), updateOrderRecord > 0 ? "成功" : "失败");
 
         return orders;
-    }
-
-    /*调用库存服务*/
-    public String callStockService(Orders orders) {
-        try {
-            GrpcXRequest request = GrpcXRequest.newBuilder()
-                    .setAppId("ORDER")
-                    .setBizContent(JSON.toJSONString(orders))
-                    .build();
-            GrpcXReply reply = stockService.grpcXCall(request);
-            return reply.getBizData();
-        } catch (Exception e) {
-            orders.setStatus("调用库存服务失效！");
-            throw new RuntimeException("调用库存服务失效!");
-        }
-    }
-
-    /*调用账户付款服务*/
-    public String callAccountService(Orders orders) {
-        try {
-            GrpcXRequest request = GrpcXRequest.newBuilder()
-                    .setAppId("ORDER")
-                    .setBizContent(JSON.toJSONString(orders))
-                    .build();
-            GrpcXReply reply = payService.grpcXCall(request);
-            return reply.getBizData();
-        } catch (Exception e) {
-            orders.setStatus("调用账户服务失效！");
-            throw new RuntimeException("调用账户服务失效!");
-        }
     }
 }

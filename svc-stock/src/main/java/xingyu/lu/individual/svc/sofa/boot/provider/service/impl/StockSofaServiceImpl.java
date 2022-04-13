@@ -1,24 +1,16 @@
 package xingyu.lu.individual.svc.sofa.boot.provider.service.impl;
 
 import com.alibaba.fastjson.JSON;
-import com.alipay.sofa.rpc.common.RpcConstants;
 import com.alipay.sofa.runtime.api.annotation.SofaService;
 import com.alipay.sofa.runtime.api.annotation.SofaServiceBinding;
 import com.baomidou.dynamic.datasource.annotation.DS;
-import io.grpc.stub.StreamObserver;
 import io.seata.core.context.RootContext;
-import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
-import xingyu.lu.individual.svc.sofa.boot.facade.builder.GrpcXReply;
-import xingyu.lu.individual.svc.sofa.boot.facade.builder.GrpcXRequest;
-import xingyu.lu.individual.svc.sofa.boot.facade.builder.SofaXServiceTriple;
+import xingyu.lu.individual.svc.sofa.boot.facade.StockService;
 import xingyu.lu.individual.svc.sofa.boot.facade.entity.Orders;
 import xingyu.lu.individual.svc.sofa.boot.facade.entity.Product;
 import xingyu.lu.individual.svc.sofa.boot.facade.mapper.ProductMapper;
-import xingyu.lu.individual.svc.sofa.boot.provider.service.SofaGrpcService;
 
 import javax.annotation.Resource;
 import java.math.BigDecimal;
@@ -31,32 +23,18 @@ import java.math.BigDecimal;
 @Slf4j
 @DS("stock")
 @Service
-@SofaService(uniqueId = "Grpc-Stock", interfaceType = SofaXServiceTriple.IXService.class,
-        bindings = {@SofaServiceBinding(
-                bindingType = RpcConstants.PROTOCOL_TYPE_TRIPLE,
-                serializeType = RpcConstants.SERIALIZE_PROTOBUF)})
-public class StockSofaGrpcServiceImpl extends SofaXServiceTriple.XServiceImplBase implements SofaGrpcService {
-
-    @Override
-    public void grpcXCall(GrpcXRequest request, StreamObserver<GrpcXReply> responseObserver) {
-        String data = bizService(request.getBizContent());
-        GrpcXReply reply = GrpcXReply.newBuilder()
-                .setBizData(data)
-                .build();
-        responseObserver.onNext(reply);
-        responseObserver.onCompleted();
-    }
+@SofaService(uniqueId = "Stock",
+        interfaceType = StockService.class,
+        bindings = {@SofaServiceBinding(bindingType = "bolt")})
+public class StockSofaServiceImpl implements StockService {
 
     @Resource
     private ProductMapper productMapper;
 
     @Override
-    public String bizService(String param) {
+    public Orders bizService(Orders orders) {
         log.info("当前 XID: {}", RootContext.getXID());
-        Orders orders = null;
         try {
-            orders = JSON.parseObject(param, Orders.class);
-
             Integer productId = orders.getProductId();
             BigDecimal payAmount = orders.getPayAmount();
 
@@ -81,7 +59,7 @@ public class StockSofaGrpcServiceImpl extends SofaXServiceTriple.XServiceImplBas
             e.printStackTrace();
             throw new RuntimeException(e.getMessage());
         }
-        return JSON.toJSONString(orders);
+        return orders;
     }
 
 }

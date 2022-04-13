@@ -1,4 +1,4 @@
-package xingyu.lu.individual.svc.sofa.boot.facade;
+package xingyu.lu.individual.svc.sofa.boot.config;
 
 import lombok.extern.slf4j.Slf4j;
 import org.mybatis.spring.annotation.MapperScan;
