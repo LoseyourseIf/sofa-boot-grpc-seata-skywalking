@@ -50,11 +50,6 @@
     </properties>
 
     <dependencies>
-        <!--sofa rpc-->
-        <dependency>
-            <groupId>com.alipay.sofa</groupId>
-            <artifactId>rpc-sofa-boot</artifactId>
-        </dependency>
         <!--spring-boot-starter-web-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -82,7 +77,6 @@
             <groupId>com.alipay.sofa</groupId>
             <artifactId>rpc-sofa-boot-starter</artifactId>
         </dependency>
-
         <!-- Mybatis-Plus -->
         <dependency>
             <groupId>com.baomidou</groupId>

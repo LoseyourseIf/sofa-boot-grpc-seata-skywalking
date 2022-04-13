@@ -99,7 +99,6 @@ mybatis-plus:
 
 
 logging:
-  path: ./logs
   name: ${spring.application.name}
   level:
     org:

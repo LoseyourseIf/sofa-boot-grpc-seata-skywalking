@@ -8,12 +8,9 @@ import com.alipay.sofa.runtime.api.annotation.SofaService;
 import com.alipay.sofa.runtime.api.annotation.SofaServiceBinding;
 import com.baomidou.dynamic.datasource.annotation.DS;
 import io.seata.core.context.RootContext;
-import io.seata.core.exception.TransactionException;
 import io.seata.spring.annotation.GlobalTransactional;
-import io.seata.tm.api.GlobalTransactionContext;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import xingyu.lu.individual.svc.sofa.boot.facade.builder.GrpcXReply;
 import xingyu.lu.individual.svc.sofa.boot.facade.builder.GrpcXRequest;
@@ -23,7 +20,6 @@ import xingyu.lu.individual.svc.sofa.boot.facade.mapper.OrdersMapper;
 
 import javax.annotation.Resource;
 import java.math.BigDecimal;
-
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -37,7 +33,6 @@ import java.util.concurrent.locks.ReentrantLock;
 @SofaService(uniqueId = "Rest-Order", interfaceType = ConsumeService.class, bindings =
 @SofaServiceBinding(bindingType = "rest", timeout = 50000))
 public class ConsumeServiceImpl implements ConsumeService {
-
 
     @SofaReference(
             uniqueId = "Grpc-Pay",
@@ -58,9 +53,8 @@ public class ConsumeServiceImpl implements ConsumeService {
     @Resource
     private OrdersMapper ordersMapper;
 
-    private Lock lock = new ReentrantLock();
-
     @GlobalTransactional
+    @Transactional
     public Orders createOrder() {
         log.info("当前 XID: {}", RootContext.getXID());
         /* Product 单价 5 库存 10 */
