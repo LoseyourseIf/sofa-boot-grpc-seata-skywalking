@@ -24,9 +24,9 @@ import java.math.BigDecimal;
 @SofaService(uniqueId = "Pay",
         interfaceType = PayService.class,
         bindings = {@SofaServiceBinding(
-                bindingType = "rest",
+                bindingType = "bolt",
                 filters = {"seataTxContextFilter"})})
-public class PaySofaServiceImpl implements PayService {
+public class PaySofaServiceBoltImpl implements PayService {
 
     @Resource
     private AccountMapper accountMapper;

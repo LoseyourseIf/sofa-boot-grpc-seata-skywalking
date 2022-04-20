@@ -27,7 +27,7 @@ import java.math.BigDecimal;
         bindings = {@SofaServiceBinding(
                 bindingType = "rest",
                 filters = {"seataTxContextFilter"})})
-public class StockSofaServiceImpl implements StockService {
+public class StockSofaServiceRestImpl implements StockService {
 
     @Resource
     private ProductMapper productMapper;
