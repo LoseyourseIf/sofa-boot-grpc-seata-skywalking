@@ -25,7 +25,7 @@ import java.math.BigDecimal;
         interfaceType = PayService.class,
         bindings = {@SofaServiceBinding(
                 bindingType = "rest",
-                filters = {"seataTxContextProviderFilter"})})
+                filters = {"seataTxContextFilter"})})
 public class PaySofaServiceImpl implements PayService {
 
     @Resource
