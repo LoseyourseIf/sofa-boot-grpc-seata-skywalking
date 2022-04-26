@@ -19,7 +19,7 @@
     </dependencies>
 
     <build>
-        <finalName>Sofa-Consumer</finalName>
+        <finalName>Sofa-ConsumerApplication</finalName>
         <plugins>
             <plugin>
                 <!-- The plugin rewrites your manifest -->
