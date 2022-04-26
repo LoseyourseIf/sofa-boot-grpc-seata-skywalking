@@ -18,7 +18,7 @@ import javax.annotation.Resource;
 @Slf4j
 @Service
 @DS("pay")
-@SofaService(uniqueId = "Pay",
+@SofaService(uniqueId = "Pay-Bolt",
         interfaceType = PayService.class,
         bindings = {@SofaServiceBinding(
                 bindingType = "bolt",

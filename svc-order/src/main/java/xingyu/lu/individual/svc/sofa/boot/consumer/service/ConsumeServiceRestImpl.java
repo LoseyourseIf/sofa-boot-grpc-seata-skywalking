@@ -26,28 +26,28 @@ import javax.annotation.Resource;
 public class ConsumeServiceRestImpl implements ConsumeService {
 
     /*REST*/
-    @SofaReference(uniqueId = "Pay", jvmFirst = false,
+    @SofaReference(uniqueId = "Pay-Rest", jvmFirst = false,
             interfaceType = PayService.class,
             binding = @SofaReferenceBinding(bindingType = "rest",
                     filters = {"seataTxContextFilter"}))
     private PayService restPayService;
 
-    @SofaReference(uniqueId = "Stock", jvmFirst = false,
+    @SofaReference(uniqueId = "Stock-Rest", jvmFirst = false,
             interfaceType = StockService.class,
             binding = @SofaReferenceBinding(bindingType = "rest",
                     filters = {"seataTxContextFilter"}))
     private StockService restStockService;
 
     /*BOLT*/
-    @SofaReference(uniqueId = "Pay", jvmFirst = false,
+    @SofaReference(uniqueId = "Pay-Bolt", jvmFirst = false,
             interfaceType = PayService.class,
-            binding = @SofaReferenceBinding(bindingType = "rest",
+            binding = @SofaReferenceBinding(bindingType = "bolt",
                     filters = {"seataTxContextFilter"}))
     private PayService boltPayService;
 
-    @SofaReference(uniqueId = "Stock", jvmFirst = false,
+    @SofaReference(uniqueId = "Stock-Bolt", jvmFirst = false,
             interfaceType = StockService.class,
-            binding = @SofaReferenceBinding(bindingType = "rest",
+            binding = @SofaReferenceBinding(bindingType = "bolt",
                     filters = {"seataTxContextFilter"}))
     private StockService boltStockService;
 

@@ -19,7 +19,7 @@ import javax.annotation.Resource;
 @Slf4j
 @DS("stock")
 @Service
-@SofaService(uniqueId = "Stock",
+@SofaService(uniqueId = "Stock-Bolt",
         interfaceType = StockService.class,
         bindings = {@SofaServiceBinding(
                 bindingType = "bolt",
