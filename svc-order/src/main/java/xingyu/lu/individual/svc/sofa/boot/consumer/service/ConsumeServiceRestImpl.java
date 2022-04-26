@@ -25,24 +25,37 @@ import javax.annotation.Resource;
 @SofaServiceBinding(bindingType = "rest", timeout = 50000))
 public class ConsumeServiceRestImpl implements ConsumeService {
 
-
-    @SofaReference(uniqueId = "Pay",jvmFirst = false,
+    /*REST*/
+    @SofaReference(uniqueId = "Pay", jvmFirst = false,
             interfaceType = PayService.class,
             binding = @SofaReferenceBinding(bindingType = "rest",
                     filters = {"seataTxContextFilter"}))
-    private PayService payService;
+    private PayService restPayService;
 
-    @SofaReference(uniqueId = "Stock",jvmFirst = false,
+    @SofaReference(uniqueId = "Stock", jvmFirst = false,
             interfaceType = StockService.class,
             binding = @SofaReferenceBinding(bindingType = "rest",
                     filters = {"seataTxContextFilter"}))
-    private StockService stockService;
+    private StockService restStockService;
+
+    /*BOLT*/
+    @SofaReference(uniqueId = "Pay", jvmFirst = false,
+            interfaceType = PayService.class,
+            binding = @SofaReferenceBinding(bindingType = "rest",
+                    filters = {"seataTxContextFilter"}))
+    private PayService boltPayService;
+
+    @SofaReference(uniqueId = "Stock", jvmFirst = false,
+            interfaceType = StockService.class,
+            binding = @SofaReferenceBinding(bindingType = "rest",
+                    filters = {"seataTxContextFilter"}))
+    private StockService boltStockService;
 
     @Resource
     private BizService bizService;
 
     @Override
     public Orders createOrder() throws TransactionException {
-        return bizService.createOrderBiz(payService,stockService);
+        return bizService.createOrderBiz(boltPayService, boltStockService);
     }
 }
