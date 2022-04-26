@@ -19,11 +19,17 @@ import javax.annotation.Resource;
 @Service
 @DS("pay")
 @SofaService(uniqueId = "Pay-Bolt",
-        interfaceType = PayService.class,
-        bindings = {@SofaServiceBinding(
+        interfaceType = PayService.class, bindings = {
+        @SofaServiceBinding(
                 bindingType = "bolt",
+                filters = {"seataTxContextFilter"}),
+        @SofaServiceBinding(
+                bindingType = "rest",
+                filters = {"seataTxContextFilter"}),
+        @SofaServiceBinding(
+                bindingType = "h2c",
                 filters = {"seataTxContextFilter"})})
-public class PaySofaServiceBoltImpl extends PayBaseService implements PayService {
+public class PaySofaServiceImpl extends PayBaseService implements PayService {
 
     @Resource
     private AccountMapper accountMapper;

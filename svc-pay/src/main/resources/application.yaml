@@ -24,4 +24,4 @@ com:
           address: nacos://172.16.31.210:31256/dev
         rest-port: 8091
         bolt-port: 12201
-        dubbo-port: 20881
+        h2c-port: 12301

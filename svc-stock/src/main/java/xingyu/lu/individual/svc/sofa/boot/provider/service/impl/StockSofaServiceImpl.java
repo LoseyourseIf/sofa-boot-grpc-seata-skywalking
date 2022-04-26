@@ -19,12 +19,18 @@ import javax.annotation.Resource;
 @Slf4j
 @DS("stock")
 @Service
-@SofaService(uniqueId = "Stock-Dubbo",
-        interfaceType = StockService.class,
-        bindings = {@SofaServiceBinding(
-                bindingType = "dubbo",
+@SofaService(uniqueId = "Stock",
+        interfaceType = StockService.class, bindings = {
+        @SofaServiceBinding(
+                bindingType = "bolt",
+                filters = {"seataTxContextFilter"}),
+        @SofaServiceBinding(
+                bindingType = "rest",
+                filters = {"seataTxContextFilter"}),
+        @SofaServiceBinding(
+                bindingType = "h2c",
                 filters = {"seataTxContextFilter"})})
-public class StockSofaServiceDubboImpl extends StockBaseService implements StockService {
+public class StockSofaServiceImpl extends StockBaseService implements StockService {
 
     @Resource
     private ProductMapper productMapper;

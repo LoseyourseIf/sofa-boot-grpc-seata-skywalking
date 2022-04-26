@@ -26,50 +26,50 @@ import javax.annotation.Resource;
 public class ConsumeServiceRestImpl implements ConsumeService {
 
     /*REST*/
-    @SofaReference(uniqueId = "Pay-Rest", jvmFirst = false,
+    @SofaReference(uniqueId = "Pay", jvmFirst = false,
             interfaceType = PayService.class,
             binding = @SofaReferenceBinding(bindingType = "rest",
                     filters = {"seataTxContextFilter"}))
     private PayService restPayService;
 
-    @SofaReference(uniqueId = "Stock-Rest", jvmFirst = false,
+    @SofaReference(uniqueId = "Stock", jvmFirst = false,
             interfaceType = StockService.class,
             binding = @SofaReferenceBinding(bindingType = "rest",
                     filters = {"seataTxContextFilter"}))
     private StockService restStockService;
 
     /*BOLT*/
-    @SofaReference(uniqueId = "Pay-Bolt", jvmFirst = false,
+    @SofaReference(uniqueId = "Pay", jvmFirst = false,
             interfaceType = PayService.class,
             binding = @SofaReferenceBinding(bindingType = "bolt",
                     filters = {"seataTxContextFilter"}))
     private PayService boltPayService;
 
-    @SofaReference(uniqueId = "Stock-Bolt", jvmFirst = false,
+    @SofaReference(uniqueId = "Stock", jvmFirst = false,
             interfaceType = StockService.class,
             binding = @SofaReferenceBinding(bindingType = "bolt",
                     filters = {"seataTxContextFilter"}))
     private StockService boltStockService;
 
-
-    /*DUBBO*/
-    @SofaReference(uniqueId = "Pay-Dubbo", jvmFirst = false,
+    /*H2C*/
+    @SofaReference(uniqueId = "Pay", jvmFirst = false,
             interfaceType = PayService.class,
-            binding = @SofaReferenceBinding(bindingType = "dubbo",
+            binding = @SofaReferenceBinding(bindingType = "h2c",
                     filters = {"seataTxContextFilter"}))
-    private PayService dubboPayService;
+    private PayService h2cPayService;
 
-    @SofaReference(uniqueId = "Stock-Dubbo", jvmFirst = false,
+    @SofaReference(uniqueId = "Stock", jvmFirst = false,
             interfaceType = StockService.class,
-            binding = @SofaReferenceBinding(bindingType = "dubbo",
+            binding = @SofaReferenceBinding(bindingType = "h2c",
                     filters = {"seataTxContextFilter"}))
-    private StockService dubboStockService;
+    private StockService h2cStockService;
+
 
     @Resource
     private BizService bizService;
 
     @Override
     public Orders createOrder() throws TransactionException {
-        return bizService.createOrderBiz(dubboPayService, dubboStockService);
+        return bizService.createOrderBiz(h2cPayService, h2cStockService);
     }
 }
