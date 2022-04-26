@@ -23,4 +23,5 @@ com:
         registry:
           address: nacos://172.16.31.210:31256/dev
         rest-port: 8092
-        bolt-port: 9092
+        bolt-port: 12202
+        dubbo-port: 20882

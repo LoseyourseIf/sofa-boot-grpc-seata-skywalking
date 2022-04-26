@@ -51,11 +51,25 @@ public class ConsumeServiceRestImpl implements ConsumeService {
                     filters = {"seataTxContextFilter"}))
     private StockService boltStockService;
 
+
+    /*DUBBO*/
+    @SofaReference(uniqueId = "Pay-Dubbo", jvmFirst = false,
+            interfaceType = PayService.class,
+            binding = @SofaReferenceBinding(bindingType = "dubbo",
+                    filters = {"seataTxContextFilter"}))
+    private PayService dubboPayService;
+
+    @SofaReference(uniqueId = "Stock-Dubbo", jvmFirst = false,
+            interfaceType = StockService.class,
+            binding = @SofaReferenceBinding(bindingType = "dubbo",
+                    filters = {"seataTxContextFilter"}))
+    private StockService dubboStockService;
+
     @Resource
     private BizService bizService;
 
     @Override
     public Orders createOrder() throws TransactionException {
-        return bizService.createOrderBiz(boltPayService, boltStockService);
+        return bizService.createOrderBiz(dubboPayService, dubboStockService);
     }
 }
