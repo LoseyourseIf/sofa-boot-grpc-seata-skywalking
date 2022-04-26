@@ -22,14 +22,11 @@ import javax.annotation.Resource;
 @SofaService(uniqueId = "Stock",
         interfaceType = StockService.class, bindings = {
         @SofaServiceBinding(
-                bindingType = "bolt",
-                filters = {"seataTxContextFilter"}),
+                bindingType = "bolt", filters = {"seataTxContextFilter"}),
         @SofaServiceBinding(
-                bindingType = "rest",
-                filters = {"seataTxContextFilter"}),
+                bindingType = "rest", filters = {"seataTxContextFilter"}),
         @SofaServiceBinding(
-                bindingType = "h2c",
-                filters = {"seataTxContextFilter"})})
+                bindingType = "h2c", filters = {"seataTxContextFilter"})})
 public class StockSofaServiceImpl extends StockBaseService implements StockService {
 
     @Resource

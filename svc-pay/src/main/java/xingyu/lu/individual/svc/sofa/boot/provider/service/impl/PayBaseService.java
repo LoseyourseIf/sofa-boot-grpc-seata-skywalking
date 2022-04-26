@@ -2,6 +2,7 @@ package xingyu.lu.individual.svc.sofa.boot.provider.service.impl;
 
 import io.seata.core.context.RootContext;
 import org.slf4j.Logger;
+import org.springframework.stereotype.Service;
 import xingyu.lu.individual.svc.sofa.boot.facade.entity.Account;
 import xingyu.lu.individual.svc.sofa.boot.facade.entity.Orders;
 import xingyu.lu.individual.svc.sofa.boot.facade.mapper.AccountMapper;
@@ -14,10 +15,7 @@ public class PayBaseService {
             log.info("当前 XID: {}", RootContext.getXID());
             Integer userId = orders.getUserId();
             BigDecimal payAmount = orders.getPayAmount();
-
             Account account = accountMapper.selectById(userId);
-
-
             if (account.getBalance().compareTo(payAmount) < 0) {
                 log.warn("用户 {} 余额不足，当前余额:{}", userId, account.getBalance());
                 orders.setStatus("余额不足！");

@@ -25,3 +25,4 @@ com:
         rest-port: 8092
         bolt-port: 12202
         h2c-port: 12302
+        triple-port: 50052
