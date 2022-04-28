@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Extension(value = "seataTxContextFilter")
-@AutoActive(consumerSide = true,providerSide = true)
+@AutoActive(consumerSide = true, providerSide = true)
 @Slf4j
 public class SeataTxContextFilter extends Filter {
 
