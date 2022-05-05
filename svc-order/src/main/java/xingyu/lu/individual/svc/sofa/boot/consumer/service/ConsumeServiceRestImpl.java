@@ -8,7 +8,6 @@ import com.alipay.sofa.runtime.api.annotation.SofaService;
 import com.alipay.sofa.runtime.api.annotation.SofaServiceBinding;
 import com.baomidou.dynamic.datasource.annotation.DS;
 import io.seata.core.context.RootContext;
-import io.seata.core.exception.TransactionException;
 import io.seata.spring.annotation.GlobalTransactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -97,6 +96,12 @@ public class ConsumeServiceRestImpl implements ConsumeService {
     @Resource
     private BizService bizService;
 
+
+//    @Override
+//    public Orders createOrder() throws TransactionException {
+//        return bizService.createOrderBiz(h2cPayService, h2cStockService);
+//    }
+
     /**
      * Product 单价 5 库存 10
      * Account 余额 1
@@ -115,21 +120,19 @@ public class ConsumeServiceRestImpl implements ConsumeService {
 
         log.info("保存订单{}", saveOrderRecord > 0 ? "成功" : "失败");
 
-        GrpcXRequest payRequest = GrpcXRequest.newBuilder().setAppId("sofa")
-                .setBizContent(JSON.toJSONString(orders))
-                .build();
-
-        Orders operationStockResult =
-                JSON.parseObject(grpcPayService.grpcXCall(payRequest).getBizData(), Orders.class);
-
-        log.info("扣减库存 {} ", operationStockResult.toString());
-
         GrpcXRequest stockRequest = GrpcXRequest.newBuilder().setAppId("sofa")
                 .setBizContent(JSON.toJSONString(orders))
                 .build();
-
-        Orders operationAccountResult =
+        Orders operationStockResult =
                 JSON.parseObject(grpcStockService.grpcXCall(stockRequest).getBizData(), Orders.class);
+
+        log.info("扣减库存 {} ", operationStockResult.toString());
+
+        GrpcXRequest payRequest = GrpcXRequest.newBuilder().setAppId("sofa")
+                .setBizContent(JSON.toJSONString(orders))
+                .build();
+        Orders operationAccountResult =
+                JSON.parseObject(grpcPayService.grpcXCall(payRequest).getBizData(), Orders.class);
 
         log.info("扣减余额 {} ", operationAccountResult.toString());
 
