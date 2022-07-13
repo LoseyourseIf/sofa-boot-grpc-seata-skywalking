@@ -99,7 +99,7 @@ public class ConsumeServiceRestImpl implements ConsumeService {
 
     @Override
     public Orders createOrder() {
-        return bizService.createOrderBiz(h2cPayService, h2cStockService);
+        return bizService.createOrderBiz(restPayService, restStockService);
     }
 
     /**
