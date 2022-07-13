@@ -69,26 +69,8 @@ seata:
       #value与seata集群配置文件对应
       default_tx_group: default
     grouplist:
-      default: 172.16.31.210:31574
-# 若上面配置了指定了 Seata Service grouplist 则不要打开下面的注释
-#  config:
-#    type: nacos
-#    nacos:
-#      server-addr: 172.16.31.210:31256
-#      username: nacos
-#      password: nacos
-#      namespace: seata-ha
-#      group: SEATA_GROUP
-#      data-id: seata_properties
-#  registry:
-#    type: nacos
-#    nacos:
-#      server-addr: 172.16.31.210:31256
-#      username: nacos
-#      password: nacos
-#      namespace: seata-ha
-#      group: SEATA_GROUP
-#      application: seata-server
+      default: 172.16.31.210:32583
+
 
 mybatis-plus:
   configuration:
