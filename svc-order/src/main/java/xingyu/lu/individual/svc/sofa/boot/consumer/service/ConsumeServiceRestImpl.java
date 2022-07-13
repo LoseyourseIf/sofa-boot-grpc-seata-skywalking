@@ -97,10 +97,10 @@ public class ConsumeServiceRestImpl implements ConsumeService {
     private BizService bizService;
 
 
-//    @Override
-//    public Orders createOrder() throws TransactionException {
-//        return bizService.createOrderBiz(h2cPayService, h2cStockService);
-//    }
+    @Override
+    public Orders createOrder() {
+        return bizService.createOrderBiz(h2cPayService, h2cStockService);
+    }
 
     /**
      * Product 单价 5 库存 10
@@ -109,8 +109,7 @@ public class ConsumeServiceRestImpl implements ConsumeService {
      */
     @GlobalTransactional
     @Transactional
-    @Override
-    public Orders createOrder() {
+    public Orders createOrderGrpc() {
 
         log.info("当前 XID: {}", RootContext.getXID());
 

@@ -7,5 +7,5 @@ import xingyu.lu.individual.svc.sofa.boot.facade.StockService;
 import xingyu.lu.individual.svc.sofa.boot.facade.entity.Orders;
 
 public interface BizService {
-    Orders createOrderBiz(PayService payService, StockService stockService) throws TransactionException;
+    Orders createOrderBiz(PayService payService, StockService stockService);
 }

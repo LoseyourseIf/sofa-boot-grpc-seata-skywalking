@@ -26,7 +26,7 @@ public class BizServiceImpl implements BizService {
     @GlobalTransactional
     @Transactional
     @Override
-    public Orders createOrderBiz(PayService payService, StockService stockService) throws TransactionException {
+    public Orders createOrderBiz(PayService payService, StockService stockService) {
         log.info("当前 XID: {}", RootContext.getXID());
         /* Product 单价 5 库存 10 */
         /* Account 余额 1 */
