@@ -25,7 +25,7 @@ public class BizServiceImpl implements BizService {
     private OrdersMapper ordersMapper;
 
     @GlobalTransactional
-    @Transactional
+//    @Transactional
     @Override
     public Orders createOrderBiz(PayService payService, StockService stockService) {
         log.info("当前 XID: {}", RootContext.getXID());
